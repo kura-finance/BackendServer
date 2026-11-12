@@ -9,7 +9,7 @@ Open-source backend API for **Kura** — a multi-asset finance application.
 
 The backend never held wallet keys or signed transactions; the wallet works without it. What it adds is the off-chain feature set: TrackFi (Plaid, exchanges, DeBank), the Bridge.xyz fiat ramp, Dinari stocks, Stripe billing, referrals, the card waitlist and in-app account deletion.
 
-- **Point the clients at your deployment.** Mobile: `EXPO_PUBLIC_API_BASE_URL`. Web: `NEXT_PUBLIC_BACKEND_URL`. Both are empty by default; setting them turns the backend features back on in the client.
+- **Point the clients at your deployment.** Mobile: `EXPO_PUBLIC_API_BASE_URL`. Web: `NEXT_PUBLIC_BACKEND_URL`. Both are empty by default — the clients then keep the wallet key on the device (mobile) or in a password-encrypted browser vault (web) and use neither this backend nor Privy. Setting the variable switches the client to Privy login and turns the backend features back on.
 - **Enable only the domains you have keys for** in [src/config/features.ts](src/config/features.ts).
 - **Tiers depend on Stripe.** Web API access (`webTierGate`) and Treasuries (`requirePaidTier`) need tier Pro or Ultimate, and only the Stripe domain sets `User.tier`. Without Stripe every user stays Basic: web clients get 403 on most routes and Treasuries are unavailable on every client. Set tiers yourself or relax those two middlewares.
 - **Use your own Privy app.** `PRIVY_APP_ID` / `PRIVY_APP_SECRET` must match the app the clients log in with.
